@@ -28,11 +28,24 @@ class RepositorioMemoria(PersonajeRepository):
         self._siguiente_id = 1    # como AUTO_INCREMENT: nunca reutiliza un id
 
     def guardar(self, personaje):
+       # Archivo: rpg_manager_multinivel_flask/repositorio/repositorio_memoria.py (fragmento)
+
+    def __init__(self):
+        self._datos = {}          # id -> Personaje
+        self._inventarios = {}    # id -> lista de Item
+        self._siguiente_id = 1    # como AUTO_INCREMENT: nunca reutiliza un id
+
+    def guardar(self, personaje):
         # Misma regla que el UNIQUE de MariaDB sobre el nombre
-        # >>> SALA 2.2 · RepositorioMemoria
-        # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-        # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
-        # <<< FIN SALA 2.2
+        for existente in self._datos.values():
+            if existente.nombre == personaje.nombre:
+                raise DatoDuplicadoException(personaje.nombre)
+        personaje.id = self._siguiente_id
+        self._siguiente_id += 1
+        self._datos[personaje.id] = personaje
+        self._inventarios[personaje.id] = []
+        return personaje
+
 
     def buscar_por_id(self, id):
         return self._datos.get(id)          # None si no existe (dict[id] lanzaría KeyError)
