@@ -48,9 +48,16 @@ class Guerrero(Personaje):
 class Mago(Personaje):
     clase = "Mago"
 
-    # >>> SALA 1.2 · Mago y Arquero: herencia
-    # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-    # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+    def __init__(self, nombre, nivel=1, vida=100, ataque=10, oro=Decimal("0"), id=None,
+                 mana=MANA_POR_DEFECTO):
+        super().__init__(nombre, nivel, vida, ataque, oro, id)
+        self.mana = mana
+
+    def a_dict(self):
+        datos = super().a_dict()
+        datos["mana"] = self.mana
+        return datos
+
     # <<< FIN SALA 1.2
 
 
