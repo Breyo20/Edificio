@@ -12,8 +12,19 @@ import java.util.List;
 public interface PersonajeRepository {
 
     // >>> SALA 2.1 · El contrato
-    // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
-    // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+   public class Item {
+
+    private final String nombre;
+    private final String tipo;
+    private final int valor;
+    private final int cantidad;
+
+    public Item(String nombre, String tipo, int valor, int cantidad) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.cantidad = cantidad;
+
     // <<< FIN SALA 2.1
 
     /** Devuelve todos los ítems que existen en el juego (la tabla item). */
